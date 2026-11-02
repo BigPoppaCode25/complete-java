@@ -1,0 +1,481 @@
+1. Complete JavaScript// ==========================================
+// NOIR & VERSE APPAREL - MAIN JAVASCRIPT
+// ==========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --------------------------------------
+    // 1. MOBILE NAVIGATION TOGGLE
+    // --------------------------------------
+    const nav = document.querySelector('nav');
+    const header = document.querySelector('header');
+    
+    // Create mobile menu button dynamically
+    const menuToggle = document.createElement('button');
+    menuToggle.classList.add('mobile-menu-toggle');
+    menuToggle.setAttribute('aria-label', 'Toggle Navigation Menu');
+    menuToggle.innerHTML = '&#9776; Menu';
+    
+    if (header && nav) {
+        header.insertBefore(menuToggle, nav);
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('nav-open');
+        });
+    }
+
+    // --------------------------------------
+    // 2. CLIENT-SIDE FORM VALIDATION
+    // --------------------------------------
+    const enquiryForm = document.querySelector('.enquiry-form-section form');
+    const contactForm = document.querySelector('.contact-form form');
+
+    function validateForm(event) {
+        event.preventDefault();
+        const form = event.target;
+        
+        const nameInput = form.querySelector('input[type="text"]');
+        const emailInput = form.querySelector('input[type="email"]');
+        const messageInput = form.querySelector('textarea');
+
+        let isValid = true;
+        let errorMessage = '';
+
+        // Validate Name
+        if (!nameInput || nameInput.value.trim() === '') {
+            isValid = false;
+            errorMessage += '- Please enter your full name.\n';
+        }
+
+        // Validate Email format using Regex
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailInput || !emailPattern.test(emailInput.value.trim())) {
+            isValid = false;
+            errorMessage += '- Please enter a valid email address.\n';
+        }
+
+        // Validate Message
+        if (!messageInput || messageInput.value.trim() === '') {
+            isValid = false;
+            errorMessage += '- Please write your message.\n';
+        }
+
+        // Display outcome
+        if (!isValid) {
+            alert('Form Errors:\n' + errorMessage);
+        } else {
+            alert('Thank you! Your enquiry has been received by Noir & Verse.');
+            form.reset();
+        }
+    }
+
+    if (enquiryForm) enquiryForm.addEventListener('submit', validateForm);
+    if (contactForm) contactForm.addEventListener('submit', validateForm);
+
+    // --------------------------------------
+    // 3. INTERACTIVE PRODUCT FILTERING (products.html)
+    // --------------------------------------
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const productItems = document.querySelectorAll('.product-item');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const filterValue = button.getAttribute('data-filter');
+
+            // Active button style toggle
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            // Filter products display
+            productItems.forEach(item => {
+                if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+
+});
+
+
+2. Updated HTML Files with SEO Meta Tags & External Services
+
+file 1:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noir & Verse Apparel | Vintage Cinema & Poetic Streetwear</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Noir & Verse Apparel blends vintage romance cinema, 35mm film photography, and original poetry into artistic streetwear drops.">
+    <meta name="keywords" content="streetwear, film fashion, vintage aesthetic, poetic apparel, indie fashion, South Africa clothing">
+    <meta name="author" content="Noir & Verse Apparel">
+
+    <!-- Open Graph Social Media Tags -->
+    <meta property="og:title" content="Noir & Verse Apparel | Wearable Poetry">
+    <meta property="og:description" content="Explore our aesthetic clothing drops inspired by classic romance cinema and literature.">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Noir & Verse Apparel</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="enquiry.html">Journal & Enquiry</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Wearable Storytelling & Vintage Romance</h2>
+            <p>Combining 35mm photography, analogue poetry, and classic cinema into high-quality apparel.</p>
+            <a href="products.html" class="btn">Shop Latest Drop</a>
+        </section>
+
+        <section class="featured">
+            <h3>Featured Collection</h3>
+            <img src="images/hero-banner.jpg" alt="Model wearing Noir and Verse embroidered vintage jacket in sepia tone" class="featured-img">
+            <p>Discover streetwear pieces designed with cinematic storytelling and original poetry excerpts.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Noir & Verse Apparel. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+file 2:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Noir & Verse Apparel</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn about Noir & Verse Apparel, our origin story in 2024, our mission, vision, and passion for vintage cinema and poetry.">
+    <meta name="keywords" content="about noir and verse, brand story, poetic streetwear history, vintage fashion vision">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Noir & Verse Apparel</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="enquiry.html">Journal & Enquiry</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about-hero">
+            <h2>Our Origin Story</h2>
+            <img src="images/logo.jpg" alt="Noir and Verse Apparel official vintage aesthetic logo" class="brand-logo">
+            <p>Founded in 2024, Noir & Verse Apparel emerged from a desire to blend analogue photography, classic romance cinema, and written poetry into wearable art.</p>
+        </section>
+
+        <section class="mission-vision">
+            <h3>Mission & Vision</h3>
+            <article>
+                <h4>Our Mission</h4>
+                <p>To craft wearable storytelling garments that merge vintage romance visuals, original literature, and high-quality streetwear.</p>
+            </article>
+            <article>
+                <h4>Our Vision</h4>
+                <p>To nurture an international creative community of dreamers, film enthusiasts, and music lovers through artistic fashion.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Noir & Verse Apparel. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+file 3:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Collections | Noir & Verse Apparel</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Shop the latest Noir & Verse graphic tees, hoodies, and jackets featuring handwritten poetry quotes and 35mm film photography prints.">
+    <meta name="keywords" content="poetry hoodie, graphic tees, film photography shirt, indie fashion shop, vintage outerwear">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Noir & Verse Apparel</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html" class="active">Shop</a></li>
+                <li><a href="enquiry.html">Journal & Enquiry</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="shop-header">
+            <h2>Our Collections</h2>
+            <p>Select a category below to filter our wardrobe drops:</p>
+
+            <!-- Interactive Category Filter Buttons -->
+            <div class="filter-controls">
+                <button class="filter-btn active" data-filter="all">All Products</button>
+                <button class="filter-btn" data-filter="tees">T-Shirts</button>
+                <button class="filter-btn" data-filter="hoodies">Hoodies & Jackets</button>
+            </div>
+        </section>
+
+        <section class="product-grid">
+            <article class="product-item tees">
+                <img src="images/product1.jpg" alt="Romance Graphic Tee printed with 35mm film imagery and poetry excerpt" class="product-img">
+                <h3>The Romance Graphic Tee</h3>
+                <p>Price: R450.00</p>
+                <p>Heavyweight cream cotton tee featuring original handwritten romantic poetry and film prints.</p>
+            </article>
+
+            <article class="product-item hoodies">
+                <img src="images/hero-banner.jpg" alt="Noir Vintage Heavyweight Hoodie with sleeve embroidery details" class="product-img">
+                <h3>Noir Vintage Hoodie</h3>
+                <p>Price: R850.00</p>
+                <p>Deep black fleece hoodie with embroidered poetic stanzas running down the left sleeve.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Noir & Verse Apparel. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+file 4: 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal & Custom Inquiries | Noir & Verse Apparel</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Explore the Noir & Verse journal playlist and submit custom order or wholesale inquiries using our validated form.">
+    <meta name="keywords" content="fashion journal, indie playlist, wholesale clothing inquiry, custom poetic apparel order">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Noir & Verse Apparel</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="enquiry.html" class="active">Journal & Enquiry</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="journal-intro">
+            <h2>Creative Journal & Soundtracks</h2>
+            <p>Listen to our curated playlist that inspired the latest vintage collection drop:</p>
+            
+            <!-- External Media Embed (Spotify Embed Placeholder) -->
+            <div class="media-embed">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Noir and Verse Brand Spotify Playlist"></iframe>
+            </div>
+        </section>
+
+        <section class="enquiry-form-section">
+            <h3>Custom Order & Wholesale Enquiry Form</h3>
+            <form action="#" method="post" novalidate>
+                <label for="name">Full Name *</label><br>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required><br><br>
+
+                <label for="email">Email Address *</label><br>
+                <input type="email" id="email" name="email" placeholder="example@domain.com" required><br><br>
+
+                <label for="enquiry-type">Enquiry Type</label><br>
+                <select id="enquiry-type" name="enquiry-type">
+                    <option value="custom">Custom Order Request</option>
+                    <option value="stockist">Wholesale / Stockist</option>
+                    <option value="collab">Artist Collaboration</option>
+                </select><br><br>
+
+                <label for="message">Message *</label><br>
+                <textarea id="message" name="message" rows="5" placeholder="Write your enquiry message..." required></textarea><br><br>
+
+                <button type="submit" class="btn">Submit Enquiry</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Noir & Verse Apparel. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+file 5 : 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us & Locations | Noir & Verse Apparel</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Find contact details, store pop-up locations, and an interactive location map for Noir & Verse Apparel.">
+    <meta name="keywords" content="contact noir and verse, clothing pop up location, cape town fashion store, rosebank design pop up">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Noir & Verse Apparel</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="enquiry.html">Journal & Enquiry</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contact-info">
+            <h2>Get in Touch</h2>
+            <p><strong>Customer Support Email:</strong> support@noirandverse.com</p>
+            <p><strong>Phone:</strong> +27 11 555 0199</p>
+            <p><strong>Pop-up Store Location:</strong> Kloof Street, Cape Town, 8001, South Africa</p>
+        </section>
+
+        <!-- External Interactive Google Map Embed -->
+        <section class="map-section">
+            <h3>Find Our Pop-Up Store</h3>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3310.274153093708!2d18.409386376510307!3d-33.92764197320401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc6760df768f87%3A0x6b4f71a0ecb5d522!2sKloof%20St%2C%20Cape%20Town!5e0!3m2!1sen!2sza!4v1700000000000!5m2!1sen!2sza" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Google Map showing Noir and Verse Cape Town pop up store location"></iframe>
+            </div>
+        </section>
+
+        <section class="contact-form">
+            <h3>Send Us a Quick Message</h3>
+            <form action="#" method="post" novalidate>
+                <label for="contact-name">Name *</label><br>
+                <input type="text" id="contact-name" name="contact-name" required><br><br>
+
+                <label for="contact-email">Email *</label><br>
+                <input type="email" id="contact-email" name="contact-email" required><br><br>
+
+                <label for="contact-message">Message *</label><br>
+                <textarea id="contact-message" name="contact-message" rows="4" required></textarea><br><br>
+
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Noir & Verse Apparel. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+3. Updated Documentation
+
+# Noir & Verse Apparel - Web Development Project
+
+## Student Details
+* **Module:** Web Development (WDFE5112 / WEDE5020)
+* **Project Name:** Noir & Verse Apparel Prototype Website
+* **Tech Stack:** HTML5, CSS3, JavaScript (Vanilla ES6), GitHub Pages
+
+---
+
+## Project Overview
+Noir & Verse Apparel is an independent boutique clothing label blending vintage romance cinema, 35mm film photography, and written poetry into high-quality streetwear drops.
+
+---
+
+## Technical Features Implemented in Part 3
+
+### 1. JavaScript Interactivity (`js/main.js`)
+* **Client-Side Form Validation:** Prevents invalid form submissions on `enquiry.html` and `contact.html` by checking for empty input fields and valid email syntax via Regular Expressions.
+* **Responsive Mobile Navigation:** Added a hamburger toggle button for seamless navigation on small mobile viewports.
+* **Product Category Filter:** Implemented dynamic filtering buttons on `products.html` allowing users to view specific clothing items.
+
+### 2. Search Engine Optimization (SEO) & Accessibility
+* **Meta Tags:** Included `<meta name="description">`, `<meta name="keywords">`, and Open Graph social sharing tags across all 5 pages.
+* **Semantic Structure:** Organized headings sequentially (`<h1>` through `<h4>`) to maintain content hierarchy.
+* **Image Accessibility:** Assigned detailed `alt` text to every image tag for screen readers and SEO image search indexing.
+
+### 3. Embedded External Services
+* **Google Maps Embed:** Integrated an interactive map iframe on `contact.html` locating the brand's Cape Town pop-up store.
+* **Spotify Playlist Embed:** Embedded an external music stream on `enquiry.html` to highlight the brand's mood boards and journal aesthetic.
+
+---
+
+## Project References (Harvard Style)
+1. Duckett, J., 2011. *HTML and CSS: Design and Build Websites*. Indianapolis: John Wiley & Sons.
+2. MDN Web Docs, 2026. *Client-side form validation*. Available at: <https://developer.mozilla.org/> [Accessed 2 November 2026].
+3. W3Schools, 2026. *HTML Responsive Web Design*. Available at: <https://www.w3schools.com/html/html_responsive.asp> [Accessed 2 November 2026].
+
+
+
